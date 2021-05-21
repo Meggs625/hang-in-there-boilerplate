@@ -10,6 +10,10 @@ var buttonTakeMeBack = document.querySelector('.show-main');
 var buttonShowSaved = document.querySelector('.show-saved');
 var showSaved = document.querySelector('.saved-posters')
 var buttonBackToMain = document.querySelector('.back-to-main');
+var fieldImage = document.getElementById('poster-image-url');
+var fieldTitle = document.getElementById('poster-title');
+var fieldQuote = document.getElementById('poster-quote');
+var buttonShowMyPoster = document.querySelector('.make-poster');
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -115,16 +119,12 @@ var currentPoster;
 // event listeners go here 👇
 
 window.addEventListener('load', createRandomPoster);
-
 buttonRandomPoster.addEventListener('click', createRandomPoster);
-
 buttonMakeYourOwnPoster.addEventListener('click', showPosterForm);
-
 buttonTakeMeBack.addEventListener('click', returnToMain);
-
 buttonShowSaved.addEventListener('click', showSavedPosters);
-
 buttonBackToMain.addEventListener('click', returnFromSaved);
+buttonShowMyPoster.addEventListener('click', compilePoster);
 
 // functions and event handlers go here 👇
 
@@ -157,3 +157,12 @@ function returnFromSaved() {
   showSaved.classList.add('hidden');
   mainPoster.classList.remove('hidden');
 }
+function compilePoster() {
+  event.preventDefault();
+  posterImage.src = fieldImage.value;
+  posterTitle.innerText = fieldTitle.value;
+  posterQuote.innerText = fieldQuote.value;
+  showForm.classList.add('hidden');
+  mainPoster.classList.remove('hidden');
+
+};
