@@ -4,7 +4,6 @@ var posterImage = document.querySelector('.poster-img');
 var posterTitle = document.querySelector('.poster-title');
 var posterQuote = document.querySelector('.poster-quote');
 var posterGrid = document.querySelector('.saved-posters-grid');
-var miniPoster = document.querySelector('.mini-poster');
 //forms
 var mainPoster = document.querySelector('.main-poster');
 var showForm = document.querySelector('.poster-form');
@@ -170,19 +169,17 @@ function showSavedPosters() {
 
   var posterHTML = "";
 
-  for (var i=0; i < savedPosters.length; i++) {
+  for (var i = 0; i < savedPosters.length; i++) {
     posterHTML += `<article class = 'mini-poster'>
       <img src=${savedPosters[i].imageURL} />
       <h2>${savedPosters[i].title}</h2>
       <h4>${savedPosters[i].quote}</h4>
-    </article>`
+    </article>`;
   }
 
-    posterGrid.innerHTML = posterHTML;
-  //  console.log(posterGrid);
-    console.log(posterHTML);
-
+  posterGrid.innerHTML = posterHTML;
 }
+
 
 function returnFromSaved() {
   showSaved.classList.add("hidden");
@@ -217,5 +214,4 @@ function savePoster() {
   if(!savedPosters.includes(currentPoster)) {
     savedPosters.push(currentPoster);
   }
-  console.log(savedPosters);
 }
