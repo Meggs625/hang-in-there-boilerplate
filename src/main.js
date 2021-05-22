@@ -14,6 +14,7 @@ var buttonFormToMain = document.querySelector('.show-main');
 var buttonShowSaved = document.querySelector('.show-saved');
 var buttonSaveToMain = document.querySelector('.back-to-main');
 var buttonShowMyPoster = document.querySelector('.make-poster');
+var buttonSaveThisPoster = document.querySelector('.save-poster');
 //fields
 var fieldImage = document.getElementById('poster-image-url');
 var fieldTitle = document.getElementById('poster-title');
@@ -137,6 +138,8 @@ buttonSaveToMain.addEventListener("click", returnFromSaved);
 
 buttonShowMyPoster.addEventListener("click", compilePoster);
 
+buttonSaveThisPoster.addEventListener("click", savePoster);
+
 // functions and event handlers go here 👇
 
 function getRandomIndex(array) {
@@ -159,7 +162,6 @@ function returnToMain() {
   mainPoster.classList.remove("hidden");
 }
 
-
 function showSavedPosters() {
   mainPoster.classList.add("hidden");
   showSaved.classList.remove("hidden");
@@ -169,6 +171,7 @@ function returnFromSaved() {
   showSaved.classList.add("hidden");
   mainPoster.classList.remove("hidden");
 }
+
 function compilePoster() {
   event.preventDefault();
   posterImage.src = fieldImage.value;
@@ -178,16 +181,23 @@ function compilePoster() {
   pushToArray();
   returnToMain();
 }
+
 function pushToArray() {
   images.push(fieldImage.value);
   titles.push(fieldTitle.value);
   quotes.push(fieldQuote.value);
 }
+
 function storePosterInstance() {
-  var posterInstance = new Poster(
+  currentPoster = new Poster(
     fieldImage.value,
     fieldTitle.value,
     fieldQuote.value
   );
-  console.log(posterInstance);
+}
+
+function savePoster() {
+  if(!savedPosters.includes(currentPoster)) {
+    savedPosters.push(currentPoster);
+  }
 }
