@@ -4,6 +4,7 @@ var posterImage = document.querySelector('.poster-img');
 var posterTitle = document.querySelector('.poster-title');
 var posterQuote = document.querySelector('.poster-quote');
 var posterGrid = document.querySelector('.saved-posters-grid');
+
 //forms
 var mainPoster = document.querySelector('.main-poster');
 var showForm = document.querySelector('.poster-form');
@@ -141,6 +142,7 @@ buttonShowMyPoster.addEventListener("click", compilePoster);
 
 buttonSaveThisPoster.addEventListener("click", savePoster);
 
+
 // functions and event handlers go here 👇
 
 function getRandomIndex(array) {
@@ -151,6 +153,7 @@ function createRandomPoster() {
   posterImage.src = images[getRandomIndex(images)];
   posterTitle.innerText = titles[getRandomIndex(titles)];
   posterQuote.innerText = quotes[getRandomIndex(quotes)];
+  currentPoster = new Poster(posterImage.src, posterTitle.innerText, posterQuote.innerText);
 }
 
 function showPosterForm() {
