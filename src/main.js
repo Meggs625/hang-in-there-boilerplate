@@ -1,3 +1,4 @@
+// var poster = require("src/poster.js");
 // query selector variables go here 👇
 var posterImage = document.querySelector('.poster-img');
 var posterTitle = document.querySelector('.poster-title');
@@ -162,7 +163,17 @@ function compilePoster() {
   posterImage.src = fieldImage.value;
   posterTitle.innerText = fieldTitle.value;
   posterQuote.innerText = fieldQuote.value;
-  showForm.classList.add('hidden');
-  mainPoster.classList.remove('hidden');
+  storePosterInstance();
+  pushToArray();
+  returnToMain();
 
 };
+function pushToArray() {
+  images.push(fieldImage.value);
+  titles.push(fieldTitle.value);
+  quotes.push(fieldQuote.value);
+}
+function storePosterInstance() {
+  var posterInstance = new Poster(fieldImage.value, fieldTitle.value, fieldQuote.value)
+  console.log(posterInstance);
+}
