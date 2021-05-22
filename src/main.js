@@ -165,25 +165,22 @@ function returnToMain() {
 }
 
 function showSavedPosters() {
-  event.preventDefault();
-
   mainPoster.classList.add("hidden");
   showSaved.classList.remove("hidden");
-  // showSaved.classList.add('saved-posters-grid');
-  showSaved.classList.add('mini-poster');
 
-  //var posterHTML = "";
+  var posterHTML = "";
 
-  for (var i=0; i < savedPoster.length; i++) {
+  for (var i=0; i < savedPosters.length; i++) {
     posterHTML += `<article class = 'mini-poster'>
       <img src=${savedPosters[i].imageURL} />
       <h2>${savedPosters[i].title}</h2>
       <h4>${savedPosters[i].quote}</h4>
     </article>`
-
-    miniPoster.innerHTML = posterHTML;
-
   }
+
+    posterGrid.innerHTML = posterHTML;
+  //  console.log(posterGrid);
+    console.log(posterHTML);
 
 }
 
