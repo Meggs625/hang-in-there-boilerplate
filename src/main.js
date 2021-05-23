@@ -127,20 +127,16 @@ var currentPoster;
 // event listeners go here 👇
 
 window.addEventListener("load", createRandomPoster);
-
 buttonRandomPoster.addEventListener("click", createRandomPoster);
-
 buttonMakeYourOwnPoster.addEventListener("click", showPosterForm);
-
 buttonFormToMain.addEventListener("click", returnToMain);
-
 buttonShowSaved.addEventListener("click", showSavedPosters);
-
 buttonSaveToMain.addEventListener("click", returnFromSaved);
-
 buttonShowMyPoster.addEventListener("click", compilePoster);
-
 buttonSaveThisPoster.addEventListener("click", savePoster);
+posterGrid.addEventListener('dblclick', function(e) {
+  deletePoster(e);
+});
 
 
 // functions and event handlers go here 👇
@@ -169,7 +165,10 @@ function returnToMain() {
 function showSavedPosters() {
   mainPoster.classList.add("hidden");
   showSaved.classList.remove("hidden");
+  addHTMLToDataModel();
+}
 
+function addHTMLToDataModel() {
   var posterHTML = "";
 
   for (var i = 0; i < savedPosters.length; i++) {
@@ -181,7 +180,7 @@ function showSavedPosters() {
   }
 
   posterGrid.innerHTML = posterHTML;
-}
+};
 
 
 function returnFromSaved() {
@@ -217,4 +216,11 @@ function savePoster() {
   if(!savedPosters.includes(currentPoster)) {
     savedPosters.push(currentPoster);
   }
+}
+function deletePoster(e) {
+  var closest = e.target.closest('article');
+
+  console.log(closest.innerHTML);
+
+
 }
