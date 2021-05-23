@@ -4,6 +4,7 @@ var posterImage = document.querySelector('.poster-img');
 var posterTitle = document.querySelector('.poster-title');
 var posterQuote = document.querySelector('.poster-quote');
 var posterGrid = document.querySelector('.saved-posters-grid');
+
 //forms
 var mainPoster = document.querySelector('.main-poster');
 var showForm = document.querySelector('.poster-form');
@@ -126,20 +127,17 @@ var currentPoster;
 // event listeners go here 👇
 
 window.addEventListener("load", createRandomPoster);
-
 buttonRandomPoster.addEventListener("click", createRandomPoster);
-
 buttonMakeYourOwnPoster.addEventListener("click", showPosterForm);
-
 buttonFormToMain.addEventListener("click", returnToMain);
-
 buttonShowSaved.addEventListener("click", showSavedPosters);
-
 buttonSaveToMain.addEventListener("click", returnFromSaved);
-
 buttonShowMyPoster.addEventListener("click", compilePoster);
-
 buttonSaveThisPoster.addEventListener("click", savePoster);
+posterGrid.addEventListener('dblclick', function(e) {
+  deletePoster(e);
+});
+
 
 // functions and event handlers go here 👇
 
@@ -151,6 +149,7 @@ function createRandomPoster() {
   posterImage.src = images[getRandomIndex(images)];
   posterTitle.innerText = titles[getRandomIndex(titles)];
   posterQuote.innerText = quotes[getRandomIndex(quotes)];
+  currentPoster = new Poster(posterImage.src, posterTitle.innerText, posterQuote.innerText);
 }
 
 function showPosterForm() {
@@ -166,7 +165,10 @@ function returnToMain() {
 function showSavedPosters() {
   mainPoster.classList.add("hidden");
   showSaved.classList.remove("hidden");
+  addHTMLToDataModel();
+}
 
+function addHTMLToDataModel() {
   var posterHTML = "";
 
   for (var i = 0; i < savedPosters.length; i++) {
@@ -178,7 +180,7 @@ function showSavedPosters() {
   }
 
   posterGrid.innerHTML = posterHTML;
-}
+};
 
 
 function returnFromSaved() {
@@ -214,4 +216,27 @@ function savePoster() {
   if(!savedPosters.includes(currentPoster)) {
     savedPosters.push(currentPoster);
   }
+}
+function deletePoster(e) {
+  var closest = e.target.closest('article')
+
+  e.target.closest('article').remove();
+
+  for (var i =0; i < savedPosters.length; i++) {
+    if (closest.children[0].src === savedPosters[i].imageURL && closest.children[1].innerText === savedPosters[i].title
+      && closest.children[2].innerText === savedPosters[i].quote) {
+        savedPosters.splice(i, 1);
+
+      }
+  }
+
+  // var deletedMiniPoster= {
+  //   img: closest.children[0].src,
+  //   title: closest.children[1].innerText,
+  //   quote: closest.children[2].innerText,
+  // }
+  // console.log(deletedMiniPoster);
+  // console.log(savedPosters[0]);
+
+
 }
