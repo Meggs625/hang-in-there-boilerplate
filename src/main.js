@@ -174,7 +174,8 @@ function returnFromSaved() {
 
 function addHTMLToDataModel() {
   var posterHTML = "";
-
+  //creating data model with savedPosters and interpolating poster information and
+  //concatenate into the posterHTML string
   for (var i = 0; i < savedPosters.length; i++) {
     posterHTML += `<article class = 'mini-poster'>
       <img src=${savedPosters[i].imageURL} />
