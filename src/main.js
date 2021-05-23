@@ -138,7 +138,6 @@ posterGrid.addEventListener('dblclick', function(e) {
   deletePoster(e);
 });
 
-
 // functions and event handlers go here 👇
 
 function getRandomIndex(array) {
@@ -153,24 +152,24 @@ function createRandomPoster() {
 }
 
 function showPosterForm() {
-  formMain.classList.add("hidden");
-  formCustom.classList.remove("hidden");
+  formMain.classList.add('hidden');
+  formCustom.classList.remove('hidden');
 }
 
 function returnToMain() {
-  formCustom.classList.add("hidden");
-  formMain.classList.remove("hidden");
+  formCustom.classList.add('hidden');
+  formMain.classList.remove('hidden');
 }
 
 function showSavedPosters() {
-  formMain.classList.add("hidden");
-  formSaved.classList.remove("hidden");
+  formMain.classList.add('hidden');
+  formSaved.classList.remove('hidden');
   addHTMLToDataModel();
 }
 
 function returnFromSaved() {
-  formSaved.classList.add("hidden");
-  formMain.classList.remove("hidden");
+  formSaved.classList.add('hidden');
+  formMain.classList.remove('hidden');
 }
 
 function addHTMLToDataModel() {
@@ -185,8 +184,7 @@ function addHTMLToDataModel() {
   }
 
   posterGrid.innerHTML = posterHTML;
-};
-
+}
 
 
 function createCustomPoster() {
@@ -196,11 +194,16 @@ function createCustomPoster() {
   posterTitle.innerText = fieldTitle.value;
   posterQuote.innerText = fieldQuote.value;
   //creates new object instance of Poster
-  currentPoster = new Poster(fieldImage.value, fieldTitle.value, fieldQuote.value);
+  currentPoster = new Poster(
+    fieldImage.value,
+    fieldTitle.value,
+    fieldQuote.value
+  );
 
   pushToArray();
   returnToMain();
 }
+
 
 function pushToArray() {
   images.push(fieldImage.value);
@@ -217,17 +220,19 @@ function savePoster() {
 
 function deletePoster(e) {
   //assigns the event object of the closest 'article' dblClick to a variable
-  var closest = e.target.closest('article')
+  var closest = e.target.closest('article');
   //removes the article from the display
   e.target.closest('article').remove();
 
   //this exactly compares the information within the event object to the object properties of the savedPosters array
-  for (var i =0; i < savedPosters.length; i++) {
-    if (closest.children[0].src === savedPosters[i].imageURL && closest.children[1].innerText === savedPosters[i].title
-      && closest.children[2].innerText === savedPosters[i].quote) {
-        //If there is an exact match for imgsrc, title, and quote - the index and its values will be removed from the savedPosters array
-        savedPosters.splice(i, 1);
-
-      }
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (
+      closest.children[0].src === savedPosters[i].imageURL &&
+      closest.children[1].innerText === savedPosters[i].title &&
+      closest.children[2].innerText === savedPosters[i].quote
+    ) {
+      //If there is an exact match for imgsrc, title, and quote - the index and its values will be removed from the savedPosters array
+      savedPosters.splice(i, 1);
+    }
   }
 }
