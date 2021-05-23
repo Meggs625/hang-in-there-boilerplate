@@ -220,7 +220,20 @@ function savePoster() {
 function deletePoster(e) {
   var closest = e.target.closest('article');
 
-  console.log(closest.innerHTML);
+  for (var i =0; i < savedPosters.length; i++) {
+    if (closest.children[0].src === savedPosters[i].imageURL && closest.children[1].innerText === savedPosters[i].title
+      && closest.children[2].innerText === savedPosters[i].quote) {
+        console.log('Win');
+      }
+  }
+
+  // var deletedMiniPoster= {
+  //   img: closest.children[0].src,
+  //   title: closest.children[1].innerText,
+  //   quote: closest.children[2].innerText,
+  // }
+  // console.log(deletedMiniPoster);
+  // console.log(savedPosters[0]);
 
 
 }
