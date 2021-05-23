@@ -218,12 +218,15 @@ function savePoster() {
   }
 }
 function deletePoster(e) {
-  var closest = e.target.closest('article');
+  var closest = e.target.closest('article')
+
+  e.target.closest('article').remove();
 
   for (var i =0; i < savedPosters.length; i++) {
     if (closest.children[0].src === savedPosters[i].imageURL && closest.children[1].innerText === savedPosters[i].title
       && closest.children[2].innerText === savedPosters[i].quote) {
-        console.log('Win');
+        savedPosters.splice(i, 1);
+
       }
   }
 
