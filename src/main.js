@@ -6,9 +6,9 @@ var posterQuote = document.querySelector('.poster-quote');
 var posterGrid = document.querySelector('.saved-posters-grid');
 
 //forms
-var mainPoster = document.querySelector('.main-poster');
-var showForm = document.querySelector('.poster-form');
-var showSaved = document.querySelector('.saved-posters')
+var formMain = document.querySelector('.main-poster');
+var formCustom = document.querySelector('.poster-form');
+var formSaved = document.querySelector('.saved-posters')
 //buttons
 var buttonRandomPoster = document.querySelector('.show-random');
 var buttonMakeYourOwnPoster = document.querySelector('.show-form');
@@ -126,14 +126,14 @@ var currentPoster;
 
 // event listeners go here 👇
 
-window.addEventListener("load", createRandomPoster);
-buttonRandomPoster.addEventListener("click", createRandomPoster);
-buttonMakeYourOwnPoster.addEventListener("click", showPosterForm);
-buttonFormToMain.addEventListener("click", returnToMain);
-buttonShowSaved.addEventListener("click", showSavedPosters);
-buttonSaveToMain.addEventListener("click", returnFromSaved);
-buttonShowMyPoster.addEventListener("click", compilePoster);
-buttonSaveThisPoster.addEventListener("click", savePoster);
+window.addEventListener('load', createRandomPoster);
+buttonRandomPoster.addEventListener('click', createRandomPoster);
+buttonMakeYourOwnPoster.addEventListener('click', showPosterForm);
+buttonFormToMain.addEventListener('click', returnToMain);
+buttonShowSaved.addEventListener('click', showSavedPosters);
+buttonSaveToMain.addEventListener('click', returnFromSaved);
+buttonShowMyPoster.addEventListener('click', createCustomPoster);
+buttonSaveThisPoster.addEventListener('click', savePoster);
 posterGrid.addEventListener('dblclick', function(e) {
   deletePoster(e);
 });
@@ -153,19 +153,24 @@ function createRandomPoster() {
 }
 
 function showPosterForm() {
-  mainPoster.classList.add("hidden");
-  showForm.classList.remove("hidden");
+  formMain.classList.add("hidden");
+  formCustom.classList.remove("hidden");
 }
 
 function returnToMain() {
-  showForm.classList.add("hidden");
-  mainPoster.classList.remove("hidden");
+  formCustom.classList.add("hidden");
+  formMain.classList.remove("hidden");
 }
 
 function showSavedPosters() {
-  mainPoster.classList.add("hidden");
-  showSaved.classList.remove("hidden");
+  formMain.classList.add("hidden");
+  formSaved.classList.remove("hidden");
   addHTMLToDataModel();
+}
+
+function returnFromSaved() {
+  formSaved.classList.add("hidden");
+  formMain.classList.remove("hidden");
 }
 
 function addHTMLToDataModel() {
@@ -183,17 +188,16 @@ function addHTMLToDataModel() {
 };
 
 
-function returnFromSaved() {
-  showSaved.classList.add("hidden");
-  mainPoster.classList.remove("hidden");
-}
 
-function compilePoster() {
+function createCustomPoster() {
   event.preventDefault();
+  //display custom vales on mainPoster page
   posterImage.src = fieldImage.value;
   posterTitle.innerText = fieldTitle.value;
   posterQuote.innerText = fieldQuote.value;
-  storePosterInstance();
+  //creates new object instance of Poster
+  currentPoster = new Poster(fieldImage.value, fieldTitle.value, fieldQuote.value);
+
   pushToArray();
   returnToMain();
 }
@@ -204,39 +208,26 @@ function pushToArray() {
   quotes.push(fieldQuote.value);
 }
 
-function storePosterInstance() {
-  currentPoster = new Poster(
-    fieldImage.value,
-    fieldTitle.value,
-    fieldQuote.value
-  );
-}
 
 function savePoster() {
   if(!savedPosters.includes(currentPoster)) {
     savedPosters.push(currentPoster);
   }
 }
-function deletePoster(e) {
-  var closest = e.target.closest('article')
 
+function deletePoster(e) {
+  //assigns the event object of the closest 'article' dblClick to a variable
+  var closest = e.target.closest('article')
+  //removes the article from the display
   e.target.closest('article').remove();
 
+  //this exactly compares the information within the event object to the object properties of the savedPosters array
   for (var i =0; i < savedPosters.length; i++) {
     if (closest.children[0].src === savedPosters[i].imageURL && closest.children[1].innerText === savedPosters[i].title
       && closest.children[2].innerText === savedPosters[i].quote) {
+        //If there is an exact match for imgsrc, title, and quote - the index and its values will be removed from the savedPosters array
         savedPosters.splice(i, 1);
 
       }
   }
-
-  // var deletedMiniPoster= {
-  //   img: closest.children[0].src,
-  //   title: closest.children[1].innerText,
-  //   quote: closest.children[2].innerText,
-  // }
-  // console.log(deletedMiniPoster);
-  // console.log(savedPosters[0]);
-
-
 }
